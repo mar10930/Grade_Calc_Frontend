@@ -63,4 +63,41 @@
   color: white;
 }
 
+.buttons:hover
+{
+  cursor: pointer;
+}
 
+
+.sign_up
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.sign_up_container
+{
+  border: #13265C solid thin;
+  width:50%;
+}
+
+.buttons_div
+{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap:30px;
+}
+
+.error
+{
+  color: red;
+  display: none;
+}
