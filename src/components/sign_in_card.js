@@ -9,7 +9,7 @@ export default function sign_in_card()
                 <h4 className='username'>Username</h4>
                 <input className='sign_in_ta' placeholder='Enter username'/>
                 <h4 className='password'>Password</h4>
-                <input className='sign_in_ta' placeholder='Enter password'/>
+                <input type='password' className='sign_in_ta' placeholder='Enter password'/>
             </div>
 
             <div className='button_div'>
