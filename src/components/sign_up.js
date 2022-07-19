@@ -2,7 +2,10 @@ import React from 'react';
 import {useState,useRef} from 'react';
 
 export default function sign_up()
-{  
+{
+    //Main boolean value to indicate whether all fields meet the requirements
+    let valid_sign_in = true;  
+
     //All variables and references to form elements are initialized
     const sign_up_data = useRef(null);
     let first_ref = useRef(null);
@@ -12,12 +15,51 @@ export default function sign_up()
     let confirm_ref = useRef(null);
     let empty_email = false;
     let empty_password = false;
-    let valid_sign_in = true;
-    
-    //Function to check if any of the input fields are empty
-    const check_empty = () =>
+
+
+    const sign_up_main = () =>
     {
         let form_data = sign_up_data.current;
+        check_empty(form_data);
+
+
+        //Save all of the input fields in variables
+        const first_name = String(form_data['first_name'].value);
+        const last_name = String(form_data['last_name'].value);
+        const email = String(form_data['email'].value);
+        const password = String(form_data['password'].value);
+
+
+        //All the fields meet the requirements and the account is 
+        //successfully created.
+        if(valid_sign_in === true)
+        {
+            //Create the post to the api 
+            fetch('localhost:8080/save', {
+                method: 'POST',
+                headers:
+                {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify(
+                    {
+                        'email': email,
+                        'password': password,
+                        'first_name': first_name,
+                        'last_name':last_name,
+                        'major':'nil'
+                    }
+                )
+
+            }) 
+        }
+    }
+    
+    //Function to check if any of the input fields are empty
+    const check_empty = (form_data) =>
+    {
 
         if(form_data['first_name'].value === "")
         {
@@ -83,7 +125,7 @@ export default function sign_up()
         }
 
         //If password is not empty, check if password is valid
-        if( empty_password=== false)
+        if(empty_password=== false)
         {
             //Check if the password is valid
             valid_password(form_data['password'].value);
@@ -118,6 +160,7 @@ export default function sign_up()
         {
             email_ref.current.innerHTML = 'Enter a valid email address';
             email_ref.current.style.display = 'block';
+            valid_sign_in = false;
         }
 
         else
@@ -139,6 +182,7 @@ export default function sign_up()
         {
             password_ref.current.innerHTML = 'Invalid password';
             password_ref.current.style.display = 'block';
+            valid_sign_in = false;
         }
 
         else{
@@ -184,7 +228,7 @@ export default function sign_up()
                     </form>
                 </div>
                 <div className='buttons_div'>
-                    <button className='buttons' onClick={check_empty}>Sign Up</button>
+                    <button className='buttons' onClick={sign_up_main}>Sign Up</button>
                     <button className='buttons'>Back</button>
                 </div>
             </div>
