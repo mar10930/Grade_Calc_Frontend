@@ -1,8 +1,8 @@
 import React from 'react';
 import {useState,useRef} from 'react';
-
 export default function sign_up()
 {
+
     //Main boolean value to indicate whether all fields meet the requirements
     let valid_sign_in = true;  
 
@@ -35,7 +35,7 @@ export default function sign_up()
         if(valid_sign_in === true)
         {
             //Create the post to the api 
-            fetch('localhost:8080/save', {
+            fetch('/save', {
                 method: 'POST',
                 headers:
                 {
@@ -189,6 +189,11 @@ export default function sign_up()
             password_ref.current.style.display = 'none';
         }
     }
+
+
+    //Test if the axios call works properly and returns list of users
+
+
 
     return(
         <div className="sign_up">
