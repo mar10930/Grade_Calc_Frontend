@@ -110,3 +110,7 @@
   align-items: center;
 }
 
+.dashboard-container
+{
+  background-color: blueviolet;
+}

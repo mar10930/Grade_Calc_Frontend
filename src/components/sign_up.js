@@ -1,7 +1,20 @@
 import React from 'react';
 import {useState,useRef} from 'react';
+import { useHistory } from 'react-router-dom';
+import { StudentContext } from './Objects/StudentContext';
+import { useContext } from 'react';
+
+//Initialize created account object
+export const created_account =
+    {
+        first_name:'',
+        last_name:'',
+        email:''
+    }
+
 export default function sign_up()
 {
+    const{student, set_student} = useContext(StudentContext);
 
     //Main boolean value to indicate whether all fields meet the requirements
     let valid_sign_in = true;  
@@ -16,6 +29,7 @@ export default function sign_up()
     let empty_email = false;
     let empty_password = false;
 
+    const history = useHistory();
 
     const sign_up_main = () =>
     {
@@ -54,8 +68,17 @@ export default function sign_up()
                 )
 
             }) 
+            //Update the content of the created account to the exported object
+            created_account.first_name = first_name;
+            created_account.last_name = last_name;
+            created_account.email = email;
+            set_student(JSON.stringify(created_account));
+            //If account is successfuly created then redirect to dashboard
+            history.push('/dashboard');
+            
         }
     }
+
     
     //Function to check if any of the input fields are empty
     const check_empty = (form_data) =>
@@ -234,9 +257,11 @@ export default function sign_up()
                 </div>
                 <div className='buttons_div'>
                     <button className='buttons' onClick={sign_up_main}>Sign Up</button>
+                    
                     <button className='buttons'>Back</button>
                 </div>
             </div>
         </div>
+
     )
 }
